@@ -1,0 +1,18 @@
+[package]
+name = "rust-esp8266-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+xtensa-lx-rt = "0.16.0" # lx106 Feature renamed to esp8266 in 0.8.0. 0.7.0 is I think too old for the current compiler so we need something newer. Looks like esp8266 support got removed with 0.17.0
+xtensa-lx = "0.7.0" # Support for esp8266 removed in 0.9.0. Can't use 0.8.0 since esp8266-hal uses xtensa-lx = "0.7.0" as a dependency
+panic-halt = "1.0.0"
+esp8266-hal = { version = "0.5.1", optional = true }
+# esp8266 = "0.6.0"
+
+[features]
+default = ["xtensa-lx-rt/esp8266", "xtensa-lx/esp8266", "esp8266-hal"]
+
+[profile.release]
+lto = true
+codegen-units = 1
